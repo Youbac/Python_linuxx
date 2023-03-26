@@ -1,0 +1,15 @@
+
+# Fetch the ID for Derbyshire
+derbyshire_id=$(curl -s "https://opendomesday.org/api/1.0/county/" | jq '.results[] | select(.name == "Derbyshire") | .id')
+
+# Fetch all places in Derbyshire and retrieve their IDs
+place_ids=$(curl -s "https://opendomesday.org/api/1.0/place/?county=${derbyshire_id}" | jq '.results[] | .id')
+
+# Output the CSV header
+echo "manor_id,geld,ploughs" > derbyshire_manors.csv
+
+# Fetch manors for each place in Derbyshire and extract geld and ploughs
+for place_id in $place_ids; do
+  curl -s "https://opendomesday.org/api/1.0/manor/?place=${place_id}" | jq -r '.results[] | [.id, .geld, .ploughs] | @csv' >> derbyshire_manors.csv
+done
+

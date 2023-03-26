@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Task: Transfer files between local machine and remote instance
+
+# 1. Create a file named test_to_remote_instance.txt on the local machine
+touch test_to_remote_instance.txt
+
+# 2. Connect to the remote instance and create a file named test_from_remote_instance.txt, then exit
+ssh -i your_key your_user@your_ip "touch test_from_remote_instance.txt"
+
+# 3. Use the scp command to transfer files
+#    - Send test_to_remote_instance.txt to the home folder of the remote instance
+scp -i your_key test_to_remote_instance.txt your_user@your_ip:~
+
+#    - Get test_from_remote_instance.txt to the current local directory
+scp -i your_key your_user@your_ip:test_from_remote_instance.txt .
+
