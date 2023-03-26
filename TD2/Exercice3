@@ -1,0 +1,11 @@
+
+# Get the current date and time
+datetime=$(date '+%Y-%m-%d %H:%M:%S')
+
+# Write the current date and time followed by 'Hello' to hellos.txt
+echo "$datetime Hello" >> hellos.txt
+
+chmod +x say_hello.sh
+
+* * * * * /path/to/say_hello.sh
+

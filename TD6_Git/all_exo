@@ -1,0 +1,78 @@
+
+
+# Exercise 1: Configure Git
+git --version
+git config --global user.name "Youbac"
+git config --global user.email "youssef.baccar@esprit.com"
+git config --list
+
+# Exercise 2: Basic workflow with a single file
+git init
+ls -la
+git status
+echo "# Test repository" > readme.md
+git status
+git add readme.md
+git status
+git commit -m "Initial commit with readme.md"
+git status
+git log
+
+# Exercise 3: Basic workflow with multiple files treated separately
+touch main.py functions.py
+git status
+git add main.py
+git status
+git commit -m "Add main.py"
+git status
+git add functions.py
+git commit -m "Add functions.py"
+git status
+git log
+
+# Exercise 4: Basic workflow with multiple files treated all at once
+touch requirements.txt .gitignore .private
+git status
+git add .
+git status
+git commit -m "Add requirements.txt, .gitignore and .private files"
+git status
+git log --oneline
+
+# Exercise 5: Private files
+touch temp.ipynb
+git status
+echo "temp.ipynb" >> .gitignore
+git status
+touch temp.aux temp.log
+git status
+echo "temp*" > .gitignore
+git status
+echo "/.private/" >> .git/info/exclude
+
+# Exercise 6: Difference between versions
+echo "This is a sample Git repository for learning purposes." >> readme.md
+git add readme.md
+git diff --staged
+git commit -m "Update readme.md with a description"
+git diff HEAD^
+echo "New line added to the readme.md" >> readme.md
+git diff HEAD
+
+# Exercise 7: Undo
+rm -rf * # Be cautious with this command. It deletes all the files in the current directory.
+git checkout HEAD -- . # Restore files from the last commit
+
+# Exercise 8: Aliases
+git config --global alias.s status
+git config --global alias.co checkout
+git config --global alias.b branch
+git config --global alias.ci commit
+git config --global alias.dog "log --all --decorate --oneline --graph"
+git config --global alias.dag "log --all --decorate --graph"
+git config --global alias.list "diff-tree --no-commit-id --name-only -r"
+git config --global alias.unstage "reset HEAD --"
+git config --global alias.last "log -1 HEAD"
+
+# The remaining exercises involve multiple steps, and it's not practical to include them in a single script. It's essential to learn and understand each step manually to grasp the concepts effectively.
+

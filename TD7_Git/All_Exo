@@ -1,0 +1,22 @@
+git clone <repository_url>
+
+git checkout -b <your_branch_name>
+echo "Your content here" > <your_name>.txt
+git add <your_name>.txt
+git commit -m "Add <your_name>.txt"
+git push origin <your_branch_name>
+git checkout master
+git merge <your_branch_name>
+git push origin master
+git checkout <your_branch_name>
+git add README.md
+git commit -m "Update README.md"
+git checkout master
+git pull origin master
+git merge <your_branch_name>
+git checkout master
+git pull origin master
+git checkout <your_branch_name>
+git merge master
+git commit -m "Merge changes from master"
+

@@ -1,0 +1,25 @@
+
+
+# Task: Grep and awk on Wikipedia's List of cyberattacks
+
+# 1. Download the Wikipedia page
+curl https://en.wikipedia.org/wiki/List_of_cyberattacks > cyberattacks.txt
+
+# 2. Extract all the lines containing the keyword "meta"
+grep "meta" cyberattacks.txt
+
+# 3. Extract "meta" and the first following word
+grep -oP "meta \w+" cyberattacks.txt
+
+# 4. Extract the following word (but not the keyword "meta")
+grep -oP "(?<=meta )\w+" cyberattacks.txt
+
+# 5. Extract the introduction
+cat cyberattacks.txt | grep -A1 'mw-content-text' | grep -v 'mw-content-text'
+
+# 6. Extract the tab title
+grep -oP '(?<=<title>).*(?= - Wikipedia</title>)' cyberattacks.txt
+
+# 7. Make a list of cyberattacks based on section titles
+grep -oP '(?<=span class="mw-headline" id=").*(?=">)' cyberattacks.txt
+

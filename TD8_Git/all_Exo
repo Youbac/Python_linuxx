@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# Exercise 1
+mkdir td4
+cd td4
+git init
+sudo apt-get install python3-pip
+pip3 install virtualenv
+virtualenv .env
+source .env/bin/activate
+pip freeze
+echo ".env/" > .gitignore
+git add .gitignore
+git commit -m "Initial commit with .gitignore"
+
+# Exercise 2
+pip install requests
+cat > get_place_ids.py << EOF
+import requests
+
+def get_place_ids():
+    url = "https://opendomesday.org/api/1.0/county/derbyshire/"
+    response = requests.get(url)
+    data = response.json()
+    place_ids = [place['id'] for place in data['places']]
+    return place_ids
+
+if __name__ == "__main__":
+    print(get_place_ids())
+EOF
+git add get_place_ids.py
+git commit -m "Add script to get place ids in Derbyshire"
+
+# Exercise 3
+cat > manor_ids.py << EOF
+import requests
+
+def get_manor_ids(place_id):
+    url = f"https://opendomesday.org/api/1.0/place/{place_id}/"
+    response = requests.get(url)
+    data = response.json()
+    manor_ids = [manor['id'] for manor in data['manors']]
+    return manor_ids
+
+if __name__ == "__main__":
+    from get_place_ids import get_place_ids
+    place_ids = get_place_ids()
+    print(get_manor_ids(place_ids[0]))
+EOF
+git add manor_ids.py
+git commit -m "Add script to get manor ids in a place"
+
+# Exercise 4
+pip install pandas
+cat > manor_data.py << EOF
+import requests
+import pandas as pd
+from get_place_ids import get_place_ids
+from manor_ids import get_manor_ids
+
+def get_manor_data(place_id):
+    manor_ids = get_manor_ids(place_id)
+    manors = []
+    for manor_id in manor_ids:
+        url = f"https://opendomesday.org/api/1.0/manor/{manor_id}/"
+        response = requests.get(url)
+        data = response.json()
+        manors.append({
+            'manor_id': manor_id,
+            'geld_paid': data['geld_paid'],
+            'total_ploughs': data['total_ploughs']
+        })
+    return manors
+
+if __name__ == "__main__":
+    place_ids = get_place_ids()
+    all_manors = []
+
+    for place_id in place_ids:
+        all_manors.extend(get_manor_data(place_id))
+
+    df = pd.DataFrame(all_manors)
+    print(df)
+    print("Sum of geld paid:", df['geld_paid'].sum())
+    print("Sum of total ploughs:", df['total_ploughs'].sum())
+EOF
+git add manor_data.py
+git commit -m "Add script to get manor data and compute sums"
+

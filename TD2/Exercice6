@@ -1,0 +1,47 @@
+
+
+# Exercise 6: ACLs - Access Control Lists
+
+# 1. Create users
+sudo adduser client_1 --gecos "" --disabled-password
+echo "client_1:passwd-client_1" | sudo chpasswd
+
+sudo adduser contributor_1 --gecos "" --disabled-password
+echo "contributor_1:passwd-contributor_1" | sudo chpasswd
+
+sudo adduser contributor_2 --gecos "" --disabled-password
+echo "contributor_2:passwd-contributor_2" | sudo chpasswd
+
+# 2. Create groups
+sudo groupadd clients
+sudo groupadd contributors
+
+# 3. Add users to their respective group
+sudo usermod -aG clients client_1
+sudo usermod -aG contributors contributor_1
+sudo usermod -aG contributors contributor_2
+
+# 4. Check the users and groups have been successfully created
+getent passwd | grep -E 'client_1|contributor_1|contributor_2'
+getent group | grep -E 'clients|contributors'
+
+# 5. Create a folder lika_project and give it the following authorizations to groups
+sudo mkdir lika_project
+sudo chown :clients lika_project
+sudo chmod 750 lika_project
+sudo setfacl -m g:contributors:rw lika_project
+
+# 6. Also use the command ls -l and notice the change on lika_project folder
+ls -ld lika_project
+
+# 7. Change user and become as a client, then try deleting the folder
+echo "As client_1, trying to delete the folder (this should fail):"
+sudo -u client_1 rmdir lika_project 2>/dev/null || echo "Failed to delete the folder as client_1"
+
+# 8. Now change user and become as a contributor, then try deleting the folder
+echo "As contributor_1, trying to delete the folder (this should succeed):"
+sudo -u contributor_1 rmdir lika_project && echo "Deleted the folder as contributor_1"
+
+# 9. Check who is the current user
+whoami
+

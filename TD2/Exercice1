@@ -1,0 +1,47 @@
+
+
+# Exercise 1: Access general computer information
+
+# 1. Put system up to date
+echo "Updating the system..."
+sudo apt-get update && sudo apt-get upgrade -y
+echo "System update complete."
+
+# 2. Display information
+
+# Linux version
+echo -e "\nLinux version:"
+uname -a
+
+# Current processes and memory usage associated
+echo -e "\nCurrent processes and memory usage:"
+ps aux | awk '{print $2, $4, $11}' | head -n 10
+
+# Display information in a more pleasant way ("more readable for humans")
+echo -e "\nHuman-readable processes and memory usage:"
+ps aux --sort=-%mem | awk '{print $2, $4, $11}' | head -n 10 | column -t
+
+# Number of processors
+echo -e "\nNumber of processors:"
+nproc
+
+# L1, L2, and L3 cache size
+echo -e "\nL1, L2, and L3 cache size:"
+lscpu | grep "L1d\|L1i\|L2\|L3"
+
+# Disk space
+echo -e "\nDisk space:"
+df -h
+
+# Mounted devices
+echo -e "\nMounted devices:"
+mount | column -t
+
+# Connected USB devices
+echo -e "\nConnected USB devices:"
+lsusb
+
+# Hostname
+echo -e "\nHostname:"
+hostname
+
