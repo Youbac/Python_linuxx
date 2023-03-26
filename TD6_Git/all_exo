@@ -6,6 +6,8 @@ git config --global user.name "Youbac"
 git config --global user.email "youssef.baccar@esprit.com"
 git config --list
 
+# Easy
+
 # Exercise 2: Basic workflow with a single file
 git init
 ls -la
@@ -18,6 +20,8 @@ git commit -m "Initial commit with readme.md"
 git status
 git log
 
+# To remember for the final exams !!!
+
 # Exercise 3: Basic workflow with multiple files treated separately
 touch main.py functions.py
 git status
@@ -29,6 +33,8 @@ git add functions.py
 git commit -m "Add functions.py"
 git status
 git log
+
+# Same !!
 
 # Exercise 4: Basic workflow with multiple files treated all at once
 touch requirements.txt .gitignore .private
@@ -49,6 +55,8 @@ git status
 echo "temp*" > .gitignore
 git status
 echo "/.private/" >> .git/info/exclude
+
+# Difference between public and private to remember !
 
 # Exercise 6: Difference between versions
 echo "This is a sample Git repository for learning purposes." >> readme.md
@@ -74,5 +82,5 @@ git config --global alias.list "diff-tree --no-commit-id --name-only -r"
 git config --global alias.unstage "reset HEAD --"
 git config --global alias.last "log -1 HEAD"
 
-# The remaining exercises involve multiple steps, and it's not practical to include them in a single script. It's essential to learn and understand each step manually to grasp the concepts effectively.
+# This is all in one file because I copy all of the command i used in one script. I did not run this script but I run all command one by one.
 

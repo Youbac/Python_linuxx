@@ -1,48 +1,48 @@
 
 # Exercise 2: Shell - Variables and scripts scope
 
-# 1. Create a variable x and assign it the short text piri pimpin
+# 1
 x="piri pimpin"
 
-# 2. Display the value of this variable
+# 2
 echo $x
 
-# 3. Add to this value the following text piri pimpon
+# 3
 x="$x piri pimpon"
 echo $x
 
-# 4. Create a folder named my_programs, then enter into that folder
+# 4
 mkdir my_programs
 cd my_programs
 
-# 5. Create a script named pilou that displays pilou pilou
+# 5
 echo 'echo "pilou pilou"' > pilou
 
-# 6. Run this script
+# 6
 bash pilou
 
-# 7. Make this script executable
-chmod +x pilou
+# 7
+ chmod +x pilou
 
-# 8. Run the script by writing its name only
+# 8 
 ./pilou
 
-# 9. Display the content of the variable PATH
+# 9 
 echo $PATH
 
-# 10. Add the path of your current location to the global variable PATH
+# 10 
 export PATH=$PATH:$(pwd)
 
-# 12. Go to your home directory
+# 12 
 cd ~
 
-# 13. Run your script by writing its name only
+# 13 
 pilou
 
-# 14. Change the value of the PATH in the .profile file in order to make it permanent
+# 14 
 echo 'export PATH=$PATH:'$(pwd)'/my_programs' >> ~/.profile
 
-# 15. Create a new shell and run your script using its name only
+# 15 
 bash
 pilou
 

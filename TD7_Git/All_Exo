@@ -1,22 +1,22 @@
-git clone <repository_url>
+# git clone <https://github.com/LukasTAUCH/Python_linux.git>
 
-git checkout -b <your_branch_name>
-echo "Your content here" > <your_name>.txt
-git add <your_name>.txt
-git commit -m "Add <your_name>.txt"
-git push origin <your_branch_name>
+git checkout -b <Youbac_branch>
+echo "I just want to eat" > <Baccar>.txt
+git add <Baccar>.txt
+git commit -m "Add <Baccar>.txt"
+git push origin <Youbac_branch>
 git checkout master
-git merge <your_branch_name>
+git merge <Youbac_branch>
 git push origin master
-git checkout <your_branch_name>
+git checkout <Youbac_branch>
 git add README.md
 git commit -m "Update README.md"
 git checkout master
 git pull origin master
-git merge <your_branch_name>
+git merge <Youbac_branch>
 git checkout master
 git pull origin master
-git checkout <your_branch_name>
+git checkout <Youbac_branch>
 git merge master
-git commit -m "Merge changes from master"
+git commit -m "Because we murge like in DBZ"
 

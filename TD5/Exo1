@@ -8,3 +8,5 @@ derbyshire_id=$(curl -s "https://opendomesday.org/api/1.0/county/" | jq '.result
 # Fetch all places in Derbyshire and retrieve their IDs
 curl -s "https://opendomesday.org/api/1.0/place/?county=${derbyshire_id}" | jq '.results[] | .id'
 
+# Not sure about how this code really work.
+# Reminder : ask teacher.

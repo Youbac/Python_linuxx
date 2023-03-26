@@ -1,0 +1,62 @@
+import pandas as pd
+import dash
+from dash import html
+from dash import dcc
+import plotly.express as px
+import schedule
+import time
+import datetime
+
+def update_data():
+    global df, volatility, average, maximum_price, minimum_price
+    df = pd.read_csv('/home/ec2-user/Projet_Youbac_Linux/prix_a_recup.csv', names=['date', 's_prix'])
+    volatility = df['s_prix'].std()
+    average = df['s_prix'].mean()
+    maximum_price = df['s_prix'].max()
+    minimum_price = df['s_prix'].min()
+
+def update_layout():
+    return html.Div(className='Youbac',
+                    style={
+                        'backgroundColor': '#000000',
+                        'color': '#FFFFFF'
+                    },
+                    children=[
+                        html.H1('DashBoard BNB'),
+                        html.Div(className='row', children=[
+                            html.Div(className='six columns', children=[
+                                dcc.Graph(
+                                    id='time-series',
+                                    figure=px.line(df, x='date', y='s_prix', title='Série temporelle du prix de BNB')
+                                )
+                            ]),
+                            html.Div(className='six columns', children=[
+                                html.Table([
+                                    html.Tr([html.Th('Statistiques des prix')]),
+                                    html.Tr([html.Td('Volatilité :'), html.Td('{:.2f}'.format(volatility))]),
+                                    html.Tr([html.Td('Moyenne :'), html.Td('{:.2f}'.format(average))]),
+                                    html.Tr([html.Td('Dernier prix en date de BNB :'), html.Td('{:.2f}'.format(df['s_prix'].iloc[-1]))]),
+                                    html.Tr([html.Td('Maximum prix du BNB sur la journée :'), html.Td('{:.2f}'.format(maximum_price))]),
+                                    html.Tr([html.Td('Minimum prix du BNB sur la journée :'), html.Td('{:.2f}'.format(minimum_price))])
+                                ])
+                            ])
+                        ])
+                    ])
+
+def scheduled_update():
+    current_time = datetime.datetime.now().time()
+    update_hour = 20
+    if current_time.hour == update_hour:
+        update_data()
+        app.layout = update_layout
+
+update_data()
+
+app = dash.Dash(__name__)
+app.css.append_css({'external_url': 'https://codepen.io/chriddyp/pen/dZVMbK.css'})
+app.layout = update_layout
+
+schedule.every(5).minutes.do(scheduled_update)
+
+if __name__ == '__main__':
+    app.run_server(host= "0.0.0.0", port= 8050, debug=True, use_reloader=False)

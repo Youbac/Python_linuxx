@@ -2,24 +2,25 @@
 
 # Task: Grep and awk on Wikipedia's List of cyberattacks
 
-# 1. Download the Wikipedia page
+# 1
 curl https://en.wikipedia.org/wiki/List_of_cyberattacks > cyberattacks.txt
 
-# 2. Extract all the lines containing the keyword "meta"
+# 2
 grep "meta" cyberattacks.txt
 
-# 3. Extract "meta" and the first following word
+# 3
 grep -oP "meta \w+" cyberattacks.txt
 
-# 4. Extract the following word (but not the keyword "meta")
+# 4
 grep -oP "(?<=meta )\w+" cyberattacks.txt
 
-# 5. Extract the introduction
+# 5
 cat cyberattacks.txt | grep -A1 'mw-content-text' | grep -v 'mw-content-text'
 
-# 6. Extract the tab title
+# 6
 grep -oP '(?<=<title>).*(?= - Wikipedia</title>)' cyberattacks.txt
 
-# 7. Make a list of cyberattacks based on section titles
+# 7
 grep -oP '(?<=span class="mw-headline" id=").*(?=">)' cyberattacks.txt
 
+In this TD, we wanted to make the difference between different type of grep and how we extract informations using linux command.

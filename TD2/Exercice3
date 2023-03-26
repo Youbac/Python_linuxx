@@ -1,11 +1,10 @@
 
+
 # Get the current date and time
 datetime=$(date '+%Y-%m-%d %H:%M:%S')
 
-# Write the current date and time followed by 'Hello' to hellos.txt
-echo "$datetime Hello" >> hellos.txt
+# Write the current date and time followed by 'Hello'
+echo "$datetime Hello" >> # Then we have to put the name of the file.txt (or whatever . someting(txt, py...)) we want 
 
-chmod +x say_hello.sh
 
-* * * * * /path/to/say_hello.sh
 
